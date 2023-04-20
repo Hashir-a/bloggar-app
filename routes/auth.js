@@ -1,14 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middlewares/auth');
+const authenticateUser = require('../controllers/auth');
 
-router.get('/', auth, (req, res) => {
-  try {
-    
-  } catch (error) {
-    console.error(error.message);
-    res.status(401).json({ error: error.message });
-  }
-});
+router.get('/', auth, authenticateUser);
 
 module.exports = router;
