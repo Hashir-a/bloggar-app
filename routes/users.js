@@ -1,10 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const { body } = require('express-validator');
-const { createUser, getAllUsers } = require('../controllers/userController');
+const auth = require('../middlewares/auth');
+const {
+  createUser,
+  getAllUsers,
+  loginUser,
+} = require('../controllers/userController');
 
 // route POST api/users
 // create a user
+// public
 router.post(
   '/',
   [
@@ -22,7 +28,19 @@ router.post(
 
 // @route GET api/users
 // get all users
-//
-router.get('/', getAllUsers);
+// private
+router.get('/', auth, getAllUsers);
+
+// @route POST api/users/login
+// user login
+// public
+router.post(
+  '/login',
+  [
+    body('email', 'email is required').not().isEmpty(),
+    body('password', 'password is required').not().isEmpty(),
+  ],
+  loginUser
+);
 
 module.exports = router;
