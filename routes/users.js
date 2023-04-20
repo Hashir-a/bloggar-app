@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { body } = require('express-validator');
+const auth = require('../middlewares/auth');
 const {
   createUser,
   getAllUsers,
@@ -28,7 +29,7 @@ router.post(
 // @route GET api/users
 // get all users
 // private
-router.get('/', getAllUsers);
+router.get('/', auth, getAllUsers);
 
 // @route POST api/users/login
 // user login
