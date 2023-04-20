@@ -3,6 +3,7 @@ const User = require('../models/User');
 const config = require('config');
 const jsonwebtoken = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
+const i18n = require('i18n');
 
 const createUser = async (req, res) => {
   const errors = validationResult(req);
@@ -53,13 +54,11 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
 
-    if (!user)
-      return errorResponse(res, 400, 'Email or password is not correct');
+    if (!user) return errorResponse(res, 400, i18n.__('invalid_login'));
 
     const isMatch = await bcrypt.compare(password, user.password);
 
-    if (!isMatch)
-      return errorResponse(res, 400, 'Email or password is not correct');
+    if (!isMatch) return errorResponse(res, 400, i18n.__('invalid_login'));
 
     signJwt(res, user.id);
   } catch (error) {
