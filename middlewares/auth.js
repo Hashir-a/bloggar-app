@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const i18n = require('i18n');
 
 const auth = (req, res, next) => {
   const token = req.header('Authorization');
 
   if (!token) {
-    return res.status(401).json({ error: 'Authorization token not found' });
+    return res.status(401).json({ error: i18n.__('auth_token_not_found') });
   }
 
   try {
@@ -15,7 +16,7 @@ const auth = (req, res, next) => {
     next();
   } catch (error) {
     console.error(error);
-    res.status(401).json({ error: 'Invalid authorization token' });
+    res.status(401).json({ error: i18n.__('invalid_auth_token') });
   }
 };
 
