@@ -2,5 +2,7 @@
 	"invalid_login": "Email or password is not correct",
 	"user_not_found": "User not found",
 	"auth_token_not_found": "Authorization token not found",
-	"invalid_auth_token": "Invalid authorization token"
+	"invalid_auth_token": "Invalid authorization token",
+	"email_not_verified": "Please Verify Your Email first",
+	"invalid_link": "invalid link"
 }

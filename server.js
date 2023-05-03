@@ -2,6 +2,8 @@ const express = require('express');
 const connectDb = require('./config/db');
 const i18n = require('i18n');
 const path = require('path');
+const cors = require('cors');
+
 
 const PORT = process.env.PORT || 3003;
 
@@ -14,6 +16,7 @@ i18n.configure({
 app.use(i18n.init);
 
 connectDb();
+app.use(cors());
 app.use(express.json({ extended: false }));
 
 app.get('/', (req, res) => res.send('API running'));

@@ -12,8 +12,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { FormLabel } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 import axios from 'axios';
 
 const theme = createTheme();
@@ -49,17 +50,18 @@ const Signin = () => {
       )
       .then((response) => {
         console.log(response.data);
+        navigate('/dashboard');
       })
       .catch(({ response }) => {
         setError({ isError: true, message: response.data.error });
       });
     console.log(error);
-    //navigate('/dashboard');
   };
 
   const resetError = () => {
     setError({ isError: false, message: '' });
   };
+
   return (
     <ThemeProvider theme={theme}>
       <Container component='main' maxWidth='xs'>
@@ -102,15 +104,9 @@ const Signin = () => {
               onChange={resetError}
             />
             {Boolean(error.isError) && (
-              <FormLabel
-                error
-                label='error'
-                id='error'
-                type='text'
-                margin='normal'
-              >
-                {error.message}
-              </FormLabel>
+              <Stack sx={{ width: '100%' }} spacing={2}>
+                <Alert severity='error'>{error.message}</Alert>
+              </Stack>
             )}
             <br />
             <FormControlLabel

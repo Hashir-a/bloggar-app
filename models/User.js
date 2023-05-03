@@ -18,6 +18,10 @@ const UserSchema = new mongoose.Schema(
       min: [6, 'Minimum password length can be 6 characters'],
     },
     avatar: { type: String, default: '' },
+    emailVerified: { type: Boolean, default: false },
+    confirmationCode: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

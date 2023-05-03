@@ -1,4 +1,7 @@
 {
   "mongoURI": "mongodb://127.0.0.1:27017/bloggar-app?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.2",
-  "jwtSecret": "jwtSecret"
+  "jwtSecret": "jwtSecret",
+  "sendgridApiKey": "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",
+  "user": "hashirdev@gmail.com",
+  "appPassword": "eelxrzeyopwfxlip"
 }
