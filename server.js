@@ -22,7 +22,7 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', (req, res) => res.send('API running'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/auth', require('./routes/auth'));
-
+app.use('/api/posts', require('./routes/posts'));
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
