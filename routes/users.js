@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const User = require('../models/User');
+const i18n = require('i18n');
 const { body } = require('express-validator');
 const auth = require('../middlewares/auth');
 const {
   createUser,
   getAllUsers,
   loginUser,
+  verifyEmail,
 } = require('../controllers/userController');
 
 // route POST api/users
@@ -42,5 +45,11 @@ router.post(
   ],
   loginUser
 );
+
+// @route GET api/users/confirm
+// desc: emailverification
+// public
+
+router.get('/:id/confirm/:token', verifyEmail);
 
 module.exports = router;
