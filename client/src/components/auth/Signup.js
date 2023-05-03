@@ -9,8 +9,10 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { FormLabel } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function Copyright(props) {
@@ -35,6 +37,8 @@ const theme = createTheme();
 
 const SignUp = () => {
   const [error, setError] = useState({ isError: false, message: [] });
+  const [verificationAlert, setVerificationAlert] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -64,8 +68,14 @@ const SignUp = () => {
       await axios
         .post('http://127.0.0.1:3003/api/users', JSON.stringify(body), config)
         .then((response) => {
-          console.log(response.data); //token
-          //navigate('/dashboard');
+          if (response.data['user']) {
+            setVerificationAlert(true);
+            document.getElementById('form').reset();
+            setTimeout(() => {
+              console.log(response.data); //token
+              navigate('/login');
+            }, 3000);
+          }
         })
         .catch(({ response: { data } }) => {
           if (data['error']) {
@@ -108,7 +118,17 @@ const SignUp = () => {
           <Typography component='h1' variant='h5'>
             Sign up
           </Typography>
-          <Box component='form' onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          {verificationAlert && (
+            <Stack sx={{ width: '100%' }} spacing={2}>
+              <Alert severity='success'>Verification email has been sent</Alert>
+            </Stack>
+          )}
+          <Box
+            component='form'
+            id='form'
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -140,7 +160,7 @@ const SignUp = () => {
                   id='username'
                   label='username'
                   name='username'
-                  autoComplete='username'
+                  autoComplete='firstname'
                   onChange={resetError}
                 />
               </Grid>
@@ -180,19 +200,14 @@ const SignUp = () => {
                 />
               </Grid>
               {Boolean(error.isError) && (
-                <FormLabel
-                  error
-                  label='error'
-                  id='error'
-                  type='text'
-                  margin='normal'
-                >
-                  {error.message.map((msg, index) => (
-                    <p key={index}>{msg}</p>
-                  ))}
-                </FormLabel>
+                <Stack sx={{ width: '100%' }} spacing={2}>
+                  <Alert severity='error'>
+                    {error.message.map((msg, index) => (
+                      <p key={index}>{msg}</p>
+                    ))}
+                  </Alert>
+                </Stack>
               )}
-              <br />
             </Grid>
             <Button
               type='submit'
