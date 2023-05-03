@@ -90,7 +90,7 @@ const verifyEmail = async (req, res) => {
   user.emailVerified = true;
   await user.save();
 
-  res.redirect('/');
+  res.sendFile(__dirname + '/responses/verification_successful.html');
 };
 
 const signJwt = (res, id) => {

@@ -4,7 +4,6 @@ const i18n = require('i18n');
 const path = require('path');
 const cors = require('cors');
 
-
 const PORT = process.env.PORT || 3003;
 
 const app = express();
@@ -18,6 +17,7 @@ app.use(i18n.init);
 connectDb();
 app.use(cors());
 app.use(express.json({ extended: false }));
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => res.send('API running'));
 app.use('/api/users', require('./routes/users'));
