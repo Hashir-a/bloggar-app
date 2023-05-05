@@ -71,7 +71,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const [authorized, setauthorized] = useState(false);
+  const [authorized, setauthorized] = useState(true);
   const navigate = useNavigate();
 
   const classes = useStyles();

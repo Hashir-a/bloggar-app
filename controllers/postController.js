@@ -27,7 +27,7 @@ const getAllPosts = async (req, res) => {
   // TODO => add pagination
   const posts = await Post.find();
 
-  res.status(200).json({ posts: posts });
+  res.status(200).json(posts);
 };
 
 postController = {
