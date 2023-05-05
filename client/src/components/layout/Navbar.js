@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -14,6 +14,19 @@ import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import DriveFileRenameOutline from '@mui/icons-material/DriveFileRenameOutline';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  authButtons: {
+    display: 'flex',
+    flexGrow: 'wrap',
+    width: '400px',
+    alignItems: 'flex-end',
+  },
+}));
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -58,6 +71,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [authorized, setauthorized] = useState(false);
+  const navigate = useNavigate();
+
+  const classes = useStyles();
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -154,54 +171,70 @@ export default function Navbar() {
           >
             <LogoDevIcon />
           </IconButton>
-          <Typography
-            variant='h6'
-            noWrap
-            component='div'
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            Bloggar
-          </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder='Search…'
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size='large' aria-label='write' color='inherit'>
-              <Badge color='error'>
-                <DriveFileRenameOutline />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size='large'
-              edge='end'
-              aria-label='account of current user'
-              aria-controls={menuId}
-              aria-haspopup='true'
-              onClick={handleProfileMenuOpen}
-              color='inherit'
-            >
-              <AccountCircle />
-            </IconButton>
-          </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size='large'
-              aria-label='show more'
-              aria-controls={mobileMenuId}
-              aria-haspopup='true'
-              onClick={handleMobileMenuOpen}
-              color='inherit'
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
+          {authorized ? (
+            <>
+              <Typography
+                variant='h6'
+                noWrap
+                component='div'
+                sx={{ display: { xs: 'none', sm: 'block' } }}
+              >
+                Bloggar
+              </Typography>
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder='Search…'
+                  inputProps={{ 'aria-label': 'search' }}
+                />
+              </Search>
+              <Box sx={{ flexGrow: 1 }} />
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <IconButton size='large' aria-label='write' color='inherit'>
+                  <Badge color='error'>
+                    <DriveFileRenameOutline />
+                  </Badge>
+                </IconButton>
+                <IconButton
+                  size='large'
+                  edge='end'
+                  aria-label='account of current user'
+                  aria-controls={menuId}
+                  aria-haspopup='true'
+                  onClick={handleProfileMenuOpen}
+                  color='inherit'
+                >
+                  <AccountCircle />
+                </IconButton>
+              </Box>
+              <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                <IconButton
+                  size='large'
+                  aria-label='show more'
+                  aria-controls={mobileMenuId}
+                  aria-haspopup='true'
+                  onClick={handleMobileMenuOpen}
+                  color='inherit'
+                >
+                  <MoreIcon />
+                </IconButton>
+              </Box>
+            </>
+          ) : (
+            <Stack spacing={2} direction='row' className={classes.authButtons}>
+              <Button variant='contained' onClick={(e) => navigate('/login')}>
+                Login
+              </Button>
+              <Button
+                variant='contained'
+                onClick={(e) => navigate('/register')}
+              >
+                Signup
+              </Button>
+            </Stack>
+          )}
         </Toolbar>
       </AppBar>
       {renderMobileMenu}

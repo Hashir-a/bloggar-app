@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route path='login' Component={Signin} />
           <Route path='register' Component={Signup} />
-          <Route path='landing' Component={Landing} />
+          <Route path='/' Component={Landing} />
           <Route path='dashboard' Component={Dashboard} />
         </Routes>
       </Router>
