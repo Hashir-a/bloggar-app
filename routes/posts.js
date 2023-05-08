@@ -23,6 +23,6 @@ router.post(
 // @route GET /api/posts/
 // get all posts  ==> pagination
 // Private
-router.get('/', auth, getAllPosts);
+router.get('/', getAllPosts);
 
 module.exports = router;
