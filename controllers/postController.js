@@ -14,6 +14,7 @@ const createPost = async (req, res) => {
     const post = new Post({
       title,
       content,
+      images,
     });
     post.user = user.id;
     await post.save();
@@ -27,7 +28,7 @@ const getAllPosts = async (req, res) => {
   // TODO => add pagination
   const posts = await Post.find();
 
-  res.status(200).json({ posts: posts });
+  res.status(200).json(posts);
 };
 
 postController = {

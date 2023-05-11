@@ -8,6 +8,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: `url(${process.env.PUBLIC_URL + '/bg1.jpg'})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
+    backgroundPosition: 'center center',
+    backgroundSize: 'cover',
+    backgroundAttachment: 'fixed',
   },
 }));
 
