@@ -1,11 +1,13 @@
-import React from 'react'
+import Form from './Form';
+import React from 'react';
+import Form2 from './Form2';
 
 const CreatePost = () => {
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <>
+      <Form2 />
+    </>
+  );
+};
 
-export default CreatePost
+export default CreatePost;

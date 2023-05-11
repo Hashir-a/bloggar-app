@@ -14,6 +14,7 @@ const createPost = async (req, res) => {
     const post = new Post({
       title,
       content,
+      images,
     });
     post.user = user.id;
     await post.save();

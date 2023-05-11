@@ -13,7 +13,6 @@ const { getAllPosts, createPost } = require('../controllers/postController');
 router.post(
   '/',
   [
-    auth,
     body('title', 'title is required').not().isEmpty(),
     body('content', 'content is required').not().isEmpty(),
   ],

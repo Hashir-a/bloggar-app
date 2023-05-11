@@ -136,7 +136,14 @@ export default function Navbar() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size='large' aria-label='create post' color='inherit'>
+        <IconButton
+          size='large'
+          aria-label='create post'
+          color='inherit'
+          onClick={() => {
+            navigate('/create-post');
+          }}
+        >
           <Badge>
             <DriveFileRenameOutline />
           </Badge>
@@ -192,7 +199,14 @@ export default function Navbar() {
               </Search>
               <Box sx={{ flexGrow: 1 }} />
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <IconButton size='large' aria-label='write' color='inherit'>
+                <IconButton
+                  size='large'
+                  aria-label='write'
+                  color='inherit'
+                  onClick={() => {
+                    navigate('/create-post');
+                  }}
+                >
                   <Badge color='error'>
                     <DriveFileRenameOutline />
                   </Badge>
